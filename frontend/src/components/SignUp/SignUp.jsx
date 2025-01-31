@@ -6,7 +6,7 @@ import axios from "axios";
 import ValidationFormObject from "../../validation.js";
 
 
-const SingIn = () => {
+const SignUp = () => {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
@@ -219,4 +219,4 @@ const SingIn = () => {
   
 
 
-export default SingIn
+export default SignUp
