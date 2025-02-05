@@ -7,4 +7,4 @@ export{
     SignUpPage,
     Home,
     CreateProduct
-};
+}; 
