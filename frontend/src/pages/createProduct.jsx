@@ -1,6 +1,8 @@
+
 import React, { useState, useEffect } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import axios from "axios";
+
 const CreateProduct = () => {
     const [images, setImages] = useState([]);
     const [previewImages, setPreviewImages] = useState([]);
@@ -8,17 +10,12 @@ const CreateProduct = () => {
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
     const [tags, setTags] = useState("");
-    const [price, setPrice] = useState(0);
-    const [stock, setStock] = useState(0);
+    const [price, setPrice] = useState("");
+    const [stock, setStock] = useState("");
     const [email, setEmail] = useState("");
 
     const categoriesData = [
-        { title: "Electronics" },
-        { title: "Fashion" },
-        { title: "Books" },
-        { title: "Home & Garden" },
-        { title: "Beauty & Personal Care" },
-        { title: "Toys & Games" },
+        "Electronics", "Fashion", "Books", "Home & Garden", "Beauty & Personal Care", "Toys & Games"
     ];
 
     const handleImageChange = (e) => {
@@ -34,52 +31,54 @@ const CreateProduct = () => {
         };
     }, [previewImages]);
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("Submitting form..."); // ✅ Debugging step
+
+        // Ensure numeric values are properly formatted
+        const formattedPrice = parseFloat(price);
+        const formattedStock = parseInt(stock, 10);
+
         const formData = new FormData();
         formData.append("name", name);
         formData.append("description", description);
         formData.append("category", category);
         formData.append("tags", tags);
-        formData.append("price", price);
-        formData.append("stock", stock);
+        formData.append("price", formattedPrice);
+        formData.append("stock", formattedStock);
         formData.append("email", email);
-        
+
         images.forEach((image) => {
             formData.append("images", image);
-            
         });
+
         try {
-            const response = await axios.post("http://localhost:8000/api/v2/product/create-product",
-                formData,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                        
-                    },
-                }
-            );
-        if (response.status === 201) {
-        alert("Product created successfully!");
-        setImages([]);
-        setPreviewImages([]);
-        setName("");
-        setDescription("");
-        setCategory("");
-        setTags("");
-        setPrice("");
-        setStock("");
-        setEmail("");
-    };
- 
-}
-        catch (err) {
-            console.error("Error creating product:", err);
-            alert("Failed to create product. Please check the data and try again");
+            console.log("Sending request to backend...");
+            const response = await axios.post("http://localhost:8000/api/v2/product/create-product", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+
+            console.log("Response:", response.data);
+
+            if (response.status === 201) {
+                alert("Product created successfully!");
+                setImages([]);
+                setPreviewImages([]);
+                setName("");
+                setDescription("");
+                setCategory("");
+                setTags("");
+                setPrice("");
+                setStock("");
+                setEmail("");
+            }
+        } catch (err) {
+            console.error("Error creating product:", err.response?.data || err);
+            alert("Failed to create product. Please check the data and try again.");
         }
-    }        
-             
-      
+    };
 
     return (
         <div className="w-[90%] max-w-[500px] bg-white shadow-lg rounded-lg p-6 mx-auto border border-gray-200">
@@ -130,9 +129,9 @@ const CreateProduct = () => {
                         required
                     >
                         <option value="">Choose a category</option>
-                        {categoriesData.map((i) => (
-                            <option value={i.title} key={i.title}>
-                                {i.title}
+                        {categoriesData.map((title) => (
+                            <option value={title} key={title}>
+                                {title}
                             </option>
                         ))}
                     </select>
@@ -208,6 +207,6 @@ const CreateProduct = () => {
             </form>
         </div>
     );
-}
+};
 
 export default CreateProduct;
