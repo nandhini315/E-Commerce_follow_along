@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {LoginPage,SignUpPage,Home,CreateProduct} from './Routes.js';
 import "./App.css";
-
 const App = () => {
   return (
     <BrowserRouter>
