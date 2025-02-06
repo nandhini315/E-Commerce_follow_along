@@ -24,7 +24,6 @@ router.post('/create-product', pupload.array('images', 10), async (req, res) => 
     const { name, description, category, tags, price, stock, email } = req.body;
     const images = req.files.map((file) => file.path);
  
-
     const validationErrors = validateProductData({ name, description, category, price, stock, email });
     if (validationErrors.length > 0) {
         return res.status(400).json({ errors: validationErrors });
@@ -62,5 +61,4 @@ router.post('/create-product', pupload.array('images', 10), async (req, res) => 
         res.status(500).json({ error: 'Server error. Could not create product.' });
     }
 });
-
 module.exports = router;
