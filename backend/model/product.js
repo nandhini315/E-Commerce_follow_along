@@ -1,47 +1,49 @@
+const mongoose = require("mongoose");
 
-const mongoose = require('mongoose');
-const productSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: [true, 'please provide the product name'],
+const productSchema = new mongoose.Schema(
+    {
+        name: {
+            type: String,
+            required: [true, "Please provide the product name"],
+        },
+        description: {
+            type: String,
+            required: [true, "Please provide the product description"],
+        },
+        category: {
+            type: String,
+            required: [true, "Please provide the product category"],
+        },
+        tags: {
+            type: [String], // Array of tags
+            default: [],
+        },
+        price: {
+            type: Number,
+            required: [true, "Please provide the product price"],
+        },
+        stock: {
+            type: Number,
+            required: [true, "Please provide the product stock"],
+        },
+        email: {
+            type: String,
+            required: [true, "Please provide an email"],
+            match: [/.+@.+\..+/, "Please provide a valid email address"],
+        },
+        images: {
+            type: [String], // Array of image URLs (base64 or hosted links)
+            required: [true, "Please upload product images"],
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now, // Automatically set the creation date
+        },
     },
-    price: {
-        type: Number,
-        required: [true, 'please provide the product price'],
-    },
-    description: {
-        type: String,
-        required: [true, 'please provide the product description'],
-    },
-    category: {
-        type: String,
-        required: [true, 'Product category is required'],
-    },
-    tags: {
-        type: String,
-        default: [],
-    },
-    stock: {
-        type: Number,
-        required: [true, 'Product stock is required'],
-    },
-    email: {
-        type: String,
-        required: [true, 'Product email is required'],
-        match : [/.+@.+\..+/,"please enter a valid email address"]
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
-    images: {
-        type: [String],
-        default: [],
-        required: [true, 'Product images are required'],
-    },
-},
-{
-    timestamps: true,
-}
+    {
+        timestamps: true,
+    }
 );
-module.exports = mongoose.model('Product', productSchema);
+
+module.exports = mongoose.model("Product", productSchema);
+
