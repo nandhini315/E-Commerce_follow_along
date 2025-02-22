@@ -71,3 +71,16 @@ In this milestone, we created a product page for the e-commerce website. The pag
 
 ### Milestone 10:
 In this milestone, we created an API to allow product creation with image uploads using Multer. The images are stored in the uploads/ directory, and product data, including image paths, is saved to MongoDB for efficient storage and retrieval.
+
+## 🌟 Milestone 11
+In this milestone, we successfully fetched real-time product data from the backend and displayed it dynamically on the homepage. Additionally, we implemented an automatic image slider for each product, allowing multiple images to cycle every 3 seconds. This enhances user engagement and provides a more interactive browsing experience.
+
+ ## 🌟 Milestone 12:
+In this milestone, we implemented a ByProduct Page that displays products created by a specific email ID, while the Home Page continues to show all products.
+
+ ## 🌟 Milestone 13:
+In this milestone, we implemented the Update Product functionality, allowing users to edit product details. The update form dynamically loads the product's existing data, and changes are submitted via an API call. This ensures that users can modify product information easily while maintaining data integrity.
+
+ ## 🌟 Milestone 14:
+This milestone focused on integrating the Delete Product functionality, allowing users to remove products permanently. A confirmation prompt ensures accidental deletions are avoided 
+
