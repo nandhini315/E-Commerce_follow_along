@@ -1,12 +1,17 @@
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import Home from "./pages/Home.jsx";
-import CreateProduct from"./pages/createProduct.jsx";
-import MyProducts from"./pages/myproducts.jsx" ;
-import Cart from"./pages/cart.jsx";
-import ProductDetails from"./pages/productsDetails.jsx";
+import CreateProduct from "./pages/createProduct.jsx";
+import MyProducts from "./pages/myproducts.jsx";
+import Cart from "./pages/cart.jsx";
+import ProductDetails from "./pages/productsDetails.jsx";
 import Profile from "./pages/profile.jsx";
-export{   
+import CreateAddress from "./pages/createAddress.jsx";
+// import SelectAddress from "./pages/SelectAddress.jsx";
+// import OrderConfirmation from "./pages/OrderConfirmation.jsx";
+
+
+export {
     LoginPage,
     SignUpPage,
     Home,
@@ -14,5 +19,6 @@ export{
     MyProducts,
     Cart,
     ProductDetails,
-    Profile
-}; 
+    Profile,
+    CreateAddress
+}
