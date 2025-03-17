@@ -7,7 +7,7 @@ import Cart from "./pages/cart.jsx";
 import ProductDetails from "./pages/productsDetails.jsx";
 import Profile from "./pages/profile.jsx";
 import CreateAddress from "./pages/createAddress.jsx";
-// import SelectAddress from "./pages/SelectAddress.jsx";
+import SelectAddress from "./pages/SelectAdress.jsx";
 // import OrderConfirmation from "./pages/OrderConfirmation.jsx";
 
 
@@ -20,5 +20,6 @@ export {
     Cart,
     ProductDetails,
     Profile,
-    CreateAddress
+    CreateAddress,
+    SelectAddress
 }
