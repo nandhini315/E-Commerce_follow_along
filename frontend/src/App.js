@@ -1,6 +1,6 @@
 import React from 'react'
 import {BrowserRouter,Routes,Route} from "react-router-dom"
-import {LoginPage,SignUpPage,Home,CreateProduct,MyProducts,Cart,ProductDetails,Profile,CreateAddress,SelectAddress } from './Routes.js';
+import {LoginPage,SignUpPage,Home,CreateProduct,MyProducts,Cart,ProductDetails,Profile,CreateAddress,SelectAddress,OrderConfirmation } from './Routes.js';
 import "./App.css";
 const App = () => {
   return (
@@ -14,12 +14,13 @@ const App = () => {
         {/* For edit product by id */}
           <Route path="/create-product/:id" element={<CreateProduct />} />
         {/* For viewing the user’s products */}
-          <Route path="/my-products" element={<MyProducts />} />
+          <Route path="/myproducts" element={<MyProducts />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/profile" element={<Profile />} />
           <Route path='/create-address' element={<CreateAddress />} />
           <Route path='/select-address' element={<SelectAddress />} />
+          <Route path="/order-confirmation" element={<OrderConfirmation/>} />
 </Routes>
     </BrowserRouter>
 
