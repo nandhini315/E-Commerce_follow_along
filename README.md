@@ -116,4 +116,8 @@ In this milestone , we will create an backend endpoint that will save the addres
 In this milestone , we will make our create an select address page in frontend and we will write product schema for the orders in the backend.
 
 ## 🌟 Milestone 24:
-In this milestone , we will make our create an order conformation page in frontend where will display products ordering and address selected and total price details.
+In this milestone , we will make our create an order conformation page in frontend where will display products ordering and address selected and total price details. 
+
+
+ ## 🌟Milestone 25:
+ This endpoint allows users to place orders by sending product details, user information, and address details. The system retrieves the user's _id using their email and processes each product as a separate order while maintaining the same address. Each order is stored in the MongoDB orders collection using the previously defined Order schema. This ensures that every product is tracked as an independent order while linking all orders to the same user and delivery address.

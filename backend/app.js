@@ -24,12 +24,15 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/products', express.static(path.join(__dirname, 'products')));
 
 // Import Routes
-const userRoutes = require("./controller/user");
-const productRoutes = require('./controller/product');
+const user = require("./controller/user");
+const product = require('./controller/product');
+const order = require('./controller/orders');
 
 // Route Handling
-app.use("/api/v2/user", userRoutes);
-app.use("/api/v2/product", productRoutes);
+app.use("/api/v2/user", user);
+app.use("/api/v2/product", product);
+app.use("/api/v2/order", order);
+
 
 // Error Handling Middleware
 app.use(ErrorHandler);
