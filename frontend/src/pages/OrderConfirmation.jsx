@@ -1,4 +1,3 @@
-// OrderConfirmation.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Nav from '../components/navbar';
@@ -48,85 +47,22 @@ const OrderConfirmation = () => {
 
                 const cartData = cartResponse.data;
 
-                const processedCartItems = cartData.cart.map(item => ({
-                    _id: item.productId._id,
-                    name: item.productId.name,
-                    price: item.productId.price,
-                    images: item.productId.images.map(`imagePath => http://localhost:8000${imagePath}`),
-                    quantity: item.quantity,
-                }));
+                const processedCartItems = cartData.cart
+                    .filter(item => item.productId) // Ensure productId exists
+                    .map(item => ({
+                        _id: item.productId?._id || '',
+                        name: item.productId?.name || 'Unknown Product',
+                        price: item.productId?.price || 0,
+                        images: item.productId?.images?.map(imagePath => `http://localhost:8000${imagePath}`) || [],
+                        quantity: item.quantity || 1,
+                    }));
+
                 setCartItems(processedCartItems);
 
-
-                //Imagine cart array
-                // const cartData = {
-                //     cart: [
-                //         {
-                //             productId: {
-                //                 _id: "101",
-                //                 name: "Burger",
-                //                 price: 5,
-                //                 images: ["/images/burger1.jpg", "/images/burger2.jpg"]
-                //             },
-                //             quantity: 2
-                //         },
-                //         {
-                //             productId: {
-                //                 _id: "102",
-                //                 name: "Pizza",
-                //                 price: 8,
-                //                 images: ["/images/pizza1.jpg"]
-                //             },
-                //             quantity: 1
-                //         }
-                //     ]
-                // };
-
-                //The .map() function modifies this data like,
-
-                // const processedCartItems = [
-                //     {
-                //         _id: "101",
-                //         name: "Burger",
-                //         price: 5,
-                //         images: [
-                //             "http://localhost:8000/images/burger1.jpg",
-                //             "http://localhost:8000/images/burger2.jpg"
-                //         ],
-                //         quantity: 2
-                //     },
-                //     {
-                //         _id: "102",
-                //         name: "Pizza",
-                //         price: 8,
-                //         images: [
-                //             "http://localhost:8000/images/pizza1.jpg"
-                //         ],
-                //         quantity: 1
-                //     }
-                // ];
-
+                // Calculate total price
                 const total = processedCartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
                 setTotalPrice(total);
 
-                // const processedCartItems = [
-                //     { name: "Burger", price: 5, quantity: 2 }, // 5 * 2 = 10
-                //     { name: "Pizza", price: 8, quantity: 1 },  // 8 * 1 = 8
-                //     { name: "Pasta", price: 6, quantity: 3 }   // 6 * 3 = 18
-                // ];
-
-                  // Initial accumulator (acc) = 0
-
-                // 1st iteration: Burger
-                // acc = 0 + (5 * 2) = 10
-
-                // 2nd iteration: Pizza
-                // acc = 10 + (8 * 1) = 18
-
-                // 3rd iteration: Pasta
-                // acc = 18 + (6 * 3) = 36
-
-                // Final total = 36
             } catch (err) {
                 console.error('Error fetching data:', err);
                 setError(err.message || 'An unexpected error occurred.');
@@ -136,40 +72,33 @@ const OrderConfirmation = () => {
         };
 
         fetchData();
-    }, [addressId, email]);
+    }, [addressId, email, navigate]);
 
-   const handlePlaceOrder = async () => {
+    const handlePlaceOrder = async () => {
         try {
-            
             const orderItems = cartItems.map(item => ({
                 product: item._id,
                 name: item.name,
                 quantity: item.quantity,
                 price: item.price,
-                image: item.images && item.images.length > 0 ? item.images[0] : '/default-avatar.png'
+                image: item.images.length > 0 ? item.images[0] : '/default-avatar.png',
             }));
 
-            // Construct payload with email, shippingAddress, and orderItems
             const payload = {
                 email,
                 shippingAddress: selectedAddress,
                 orderItems,
             };
 
-            // Send POST request to place orders
             const response = await axios.post('http://localhost:8000/api/v2/orders/place-order', payload);
             console.log('Orders placed successfully:', response.data);
 
-            navigate('/order-success'); 
+            navigate('/order-success');
         } catch (err) {
             console.error('Error placing order:', err);
             setError(err.message || 'An unexpected error occurred while placing the order.');
-        } finally {
-            setLoading(false);
         }
     };
-
-
 
     if (loading) {
         return (
@@ -206,10 +135,9 @@ const OrderConfirmation = () => {
                         {selectedAddress ? (
                             <div className='p-4 border rounded-md'>
                                 <p className='font-medium'>
-                                    {selectedAddress.address1}{`selectedAddress.address2 ? , ${selectedAddress.address2} : ''`}, {selectedAddress.city}, {selectedAddress.state}, {selectedAddress.zipCode}
+                                    {selectedAddress.address1}, {selectedAddress.city}, {selectedAddress.state}, {selectedAddress.zipCode}
                                 </p>
                                 <p className='text-sm text-gray-600'>{selectedAddress.country}</p>
-                                <p className='text-sm text-gray-500'>Type: {selectedAddress.addressType || 'N/A'}</p>
                             </div>
                         ) : (
                             <p>No address selected.</p>
@@ -225,7 +153,7 @@ const OrderConfirmation = () => {
                                     <div key={item._id} className='flex justify-between items-center border p-4 rounded-md'>
                                         <div className='flex items-center'>
                                             <img
-                                                src={item.images && item.images.length > 0 ? item.images[0] : '/default-avatar.png'} 
+                                                src={item.images.length > 0 ? item.images[0] : '/default-avatar.png'} 
                                                 alt={item.name}
                                                 className='w-16 h-16 object-cover rounded-md mr-4'
                                             />

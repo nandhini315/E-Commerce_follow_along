@@ -23,5 +23,6 @@ export {
     Profile,
     CreateAddress,
     SelectAddress,
-    OrderConfirmation
+    OrderConfirmation,
+    MyOrdersPage
 }

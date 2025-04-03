@@ -41,7 +41,7 @@ const productSchema = new mongoose.Schema(
         },
         cart:[
             {
-                productid:{
+                productId:{
                     type: String,
                     required:[true,"Please provide the product ID"],
                     unique:true,
