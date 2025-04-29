@@ -40,7 +40,7 @@ const OrderConfirmation = () => {
                     product: item.productId._id,
                     name: item.productId.name,
                     price: item.productId.price,
-                    image: item.productId.images.map(imagePath => `https://ecommerce-online-store-backend.onrender.com${imagePath}`),
+                    image: item.productId.images.map(imagePath => `https://ecommerce-nandhu-backend.onrender.com${imagePath}`),
                     quantity: item.quantity,
                 }));
                 setCartItems(processedCartItems);
